@@ -1,4 +1,4 @@
-# Lang-Feedback-Chatbot
+# Language Feedback Chatbot
 
 An AI-powered language feedback tool that gives instant grammar correction, fluency scoring, and tone analysis.
 
