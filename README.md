@@ -23,7 +23,7 @@ Type a sentence in the language you're learning and get back:
 | LLM | Anthropic `claude-haiku-4-5` |
 | Tone detection | Hugging Face `distilbert-base-uncased-finetuned-sst-2-english` |
 | Backend | FastAPI (Python) |
-| Frontend | React + TailwindCSS (Vite) |
+| Frontend | Svelte + TailwindCSS (Vite) |
 | HTTP client | axios |
 
 ---
@@ -47,14 +47,14 @@ lang-feedback-chatbot/
 │   ├── tailwind.config.js
 │   ├── postcss.config.js
 │   └── src/
-│       ├── main.jsx
-│       ├── App.jsx
+│       ├── main.js
+│       ├── App.svelte
 │       ├── api.js
 │       ├── index.css
 │       └── components/
-│           ├── InputBox.jsx     # Sentence input, language selector, examples
-│           ├── FeedbackCard.jsx # Displays all feedback sections
-│           └── ScoreBar.jsx     # Visual score bar (green/yellow/red)
+│           ├── InputBox.svelte     # Sentence input, language selector, examples
+│           ├── FeedbackCard.svelte # Displays all feedback sections
+│           └── ScoreBar.svelte     # Visual score bar (green/yellow/red)
 │
 ├── install.sh               # Installs Python + Node dependencies
 ├── run.sh                   # Builds frontend, starts backend
