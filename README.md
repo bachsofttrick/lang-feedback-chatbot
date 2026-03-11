@@ -1,6 +1,6 @@
-# LangFeedback
+# Lang-Feedback-Chatbot
 
-An AI-powered language feedback tool that gives instant grammar correction, fluency scoring, and tone analysis — just like a real tutor.
+An AI-powered language feedback tool that gives instant grammar correction, fluency scoring, and tone analysis.
 
 ---
 
@@ -8,11 +8,11 @@ An AI-powered language feedback tool that gives instant grammar correction, flue
 
 Type a sentence in the language you're learning and get back:
 
-- **Grammar correction** — fixes errors and explains why
-- **Fluency score** — rates how natural the sentence sounds (1–10)
-- **Alternative phrasing** — a more natural way to say it
-- **Tone detection** — is it confident, hesitant, formal, or informal?
-- **Tutor tip** — one actionable suggestion to improve
+- **Grammar correction**: fixes errors and explains why
+- **Fluency score**: rates how natural the sentence sounds (1–10)
+- **Alternative phrasing**: a more natural way to say it
+- **Tone detection**: is it confident, hesitant, formal, or informal?
+- **Tutor tip**: one actionable suggestion to improve
 
 ---
 
@@ -34,7 +34,7 @@ Type a sentence in the language you're learning and get back:
 lang-feedback-chatbot/
 │
 ├── backend/
-│   ├── main.py              # FastAPI app — /analyze, /languages, /examples
+│   ├── main.py              # FastAPI app: /analyze, /languages, /examples + static file serving
 │   ├── feedback.py          # Anthropic API call + JSON parsing
 │   ├── tone_detector.py     # Hugging Face sentiment/tone pipeline
 │   ├── prompts.py           # LLM prompt templates
@@ -56,6 +56,8 @@ lang-feedback-chatbot/
 │           ├── FeedbackCard.jsx # Displays all feedback sections
 │           └── ScoreBar.jsx     # Visual score bar (green/yellow/red)
 │
+├── install.sh               # Installs Python + Node dependencies
+├── run.sh                   # Builds frontend, starts backend
 └── README.md
 ```
 
@@ -69,25 +71,19 @@ lang-feedback-chatbot/
 - Node.js 18+
 - An [Anthropic API key](https://console.anthropic.com/)
 
-### Backend
+### Install
 
 ```bash
-cd backend
-pip install -r requirements.txt
-ANTHROPIC_API_KEY=your_key_here uvicorn main:app --reload
+./install.sh
 ```
 
-The API will be available at `http://localhost:8000`.
-
-### Frontend
+### Run
 
 ```bash
-cd frontend
-npm install
-npm run dev
+ANTHROPIC_API_KEY=your_key_here ./run.sh
 ```
 
-The app will be available at `http://localhost:5173`.
+`run.sh` builds the React frontend and starts the FastAPI server. Everything is served from a single origin at `http://localhost:8000`.
 
 ---
 

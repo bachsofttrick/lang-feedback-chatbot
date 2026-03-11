@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:8000";
+const BASE_URL = "";
 
 export const analyzeSentence = async (sentence, language) => {
   const res = await axios.post(`${BASE_URL}/analyze`, { sentence, language });

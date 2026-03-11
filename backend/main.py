@@ -1,5 +1,9 @@
+import os
+from pathlib import Path
+
 from fastapi import FastAPI, HTTPException
-from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
 from feedback import get_feedback
@@ -7,12 +11,7 @@ from tone_detector import detect_tone
 
 app = FastAPI(title="LangFeedback API")
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["http://localhost:5173", "http://localhost:3000"],
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+DIST_DIR = Path(__file__).parent.parent / "frontend" / "dist"
 
 SUPPORTED_LANGUAGES = [
     "English", "Spanish", "French", "German", "Italian",
@@ -30,11 +29,6 @@ EXAMPLE_SENTENCES = [
 class AnalyzeRequest(BaseModel):
     sentence: str
     language: str = "English"
-
-
-@app.get("/")
-def root():
-    return {"status": "ok", "message": "LangFeedback API is running."}
 
 
 @app.get("/languages")
@@ -64,3 +58,12 @@ async def analyze(req: AnalyzeRequest):
     tone_data = detect_tone(sentence)
 
     return {**feedback, **tone_data}
+
+
+# Serve the built React app — must come after all API routes
+if DIST_DIR.exists():
+    app.mount("/assets", StaticFiles(directory=DIST_DIR / "assets"), name="assets")
+
+    @app.get("/{full_path:path}")
+    def serve_spa(full_path: str):
+        return FileResponse(DIST_DIR / "index.html")
